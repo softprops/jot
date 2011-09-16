@@ -11,6 +11,7 @@ object Keys {
   val clear = TaskKey[Unit]("clear", "Clears all jotted thoughts")
   val jotFile = SettingKey[File]("jot-file", "File containing thoughts")
   val jotDirectory = SettingKey[File]("jot-directory", "Directory containing jot file")
+  val colors = SettingKey[Boolean]("colors", "Toggles ansii colored output")
 }
 
 object Plugin extends sbt.Plugin {
@@ -32,14 +33,16 @@ object Plugin extends sbt.Plugin {
     }
 
   private def lsTask: Initialize[Task[Unit]] =
-    (streams, jotFile) map {
-      (out, jf) =>
-        out.log.info("thoughts..")
+    (streams, jotFile, colors) map {
+      (out, jf, clrs) =>
+        out.log.info("jottings..")
         IO.touch(jf)
         lines(jf) match {
-          case Array() => out.log.info("you have none")
+          case Array() => out.log.info("you have none. try jot:down some ideas")
           case ts => ts.foreach { _ match {
-            case(l, n) => out.log.info("%s) %s" format(n, l))
+            case(l, n) => out.log.info(
+              (if(clrs) "\033[0;36m%s\033[0m) \033[0;37m%s\033[0m" else "%s) %s") format(n, l)
+            )
           } }
         }
     }
@@ -47,31 +50,40 @@ object Plugin extends sbt.Plugin {
   def options: Seq[Setting[_]] = inConfig(Jot)(Seq(
     jotDirectory <<= (baseDirectory).identity,
     jotFile <<= (jotDirectory)(_ / ".jot"),
+    colors := true,
     down <<= inputTask { (argsTask: TaskKey[Seq[String]]) =>
-      (argsTask, streams, jotFile) map { (args, out, jf) =>
-        val thought = args.mkString(" ")
-        IO.touch(jf)
-        IO.append(jf, thought + "\n\n")
-        out.log.info("jotted down thought, %s" format thought)
+      (argsTask, streams, jotFile, colors) map { (args, out, jf, clrs) =>
+        args.mkString(" ").trim match {
+          case "" => out.log.error("usage: jot:down some ideas")
+          case thought =>
+            IO.touch(jf)
+            IO.append(jf, thought + "\n\n")
+            out.log.info(
+              (if(clrs) "jotted, \033[0;37m%s\033[0m" else "jotted, %s") format thought
+            )
+        }
       }
     },
     rm <<= inputTask { (argsTask: TaskKey[Seq[String]]) =>
-      (argsTask, streams, jotFile) map { (args, out, jf) =>
+      (argsTask, streams, jotFile, colors) map { (args, out, jf, clrs) =>
         args match {
           case Seq(num) =>
             IO.touch(jf)
             val lns = lines(jf)
             lns match {
-              case Array() => out.log.info("no thoughts to remove")
+              case Array() => out.log.info("nothing to remove")
               case many => IO.write(jf, many.filter( _ match {
                 case (l, n) if(n == num.toInt) =>
-                  out.log.info("removed the thought, %s" format l)
+                  out.log.info(
+                    (if(clrs) "removed, \033[0;37m%s\033[0m" else "removed, %s") format l
+                  )
                   false
                 case _ => true
               }).map(_._1)
                 .mkString("","\n\n","\n\n")
               )
             }
+          case _ => out.log.error("usage: jot:rm <num>")
         }
       }
     },
