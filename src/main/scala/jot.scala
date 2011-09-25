@@ -36,7 +36,7 @@ object Plugin extends sbt.Plugin {
         out.log.info("jottings..")
         IO.touch(jf)
         lines(jf) match {
-          case Array() => out.log.info("you have none. try jot:down some ideas")
+          case Array() => out.log.info("you have none. try `jot some ideas`")
           case ts => ts.foreach { _ match {
             case(l, n) => out.log.info(
               (if(clrs) "\033[0;36m%s\033[0m) \033[0;37m%s\033[0m" else "%s) %s") format(n, l)
@@ -57,7 +57,7 @@ object Plugin extends sbt.Plugin {
     jot <<= inputTask { (argsTask: TaskKey[Seq[String]]) =>
       (argsTask, streams, jotFile in jot, colors in jot) map { (args, out, jf, clrs) =>
         args.mkString(" ").trim match {
-          case "" => out.log.error("usage: jot:down some ideas")
+          case "" => out.log.error("usage: `jot some ideas`")
           case thought =>
             IO.touch(jf)
             IO.append(jf, thought + "\n\n")
@@ -86,7 +86,7 @@ object Plugin extends sbt.Plugin {
                 .mkString("","\n\n","\n\n")
               )
             }
-          case _ => out.log.error("usage: jot:rm <num>")
+          case _ => out.log.error("usage: rm(for jot) <num>")
         }
       }
     },
