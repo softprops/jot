@@ -2,9 +2,11 @@
 
 Jot tracks local project notes in a simple format. I will not make you a sandwich.
 
-- sbt plugins [best practices] ✔
+- sbt plugins [best practices][bp] ✔
 
 - settings
+
+below is a list of available settings
 
     jot                                                      # Appends a thought to your jot file
     rm(for jot)            or (rm in (SomeConfig, jot))      # Removes a thought from your jot file
