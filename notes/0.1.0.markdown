@@ -16,5 +16,10 @@ Jot tracks local project notes in a simple format. I will not make you a sandwic
 
 for more information see the projects [readme][rm]
 
+- published for sbt [0.11][sbt11]
+
+    addSbtPlugin("me.lessis" % "jot" % "0.1.0")
+
 [bp]: https://github.com/harrah/xsbt/wiki/Plugins-Best-Practices
 [rm]: https://github.com/softprops/jot#readme
+[sbt11]: http://typesafe.artifactoryonline.com/typesafe/ivy-releases/org.scala-tools.sbt/sbt-launch/0.11.0/sbt-launch.jar
