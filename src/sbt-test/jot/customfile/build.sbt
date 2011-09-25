@@ -1,3 +1,3 @@
-seq(jot.Plugin.options:_*)
+seq(jotSettings:_*)
 
-(jot.Keys.jotFile in Jot) <<= (baseDirectory)(_ / ".myjots")
+(JotKeys.jotFile in (Compile, JotKeys.jot)) <<= (baseDirectory)(_ / ".myjots")

@@ -1,4 +1,4 @@
-seq(jot.Plugin.options:_*)
+seq(jotSettings:_*)
 
 InputKey[Unit]("empty") <<= inputTask { (argsTask: TaskKey[Seq[String]]) =>
   (argsTask, streams) map {

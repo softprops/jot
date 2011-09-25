@@ -1,0 +1,20 @@
+# initial release
+
+Jot tracks local project notes in a simple format. I will not make you a sandwich.
+
+- sbt plugins [best practices] ✔
+
+- settings
+
+    jot                                                      # Appends a thought to your jot file
+    rm(for jot)            or (rm in (SomeConfig, jot))      # Removes a thought from your jot file
+    ls(for jot)            or (ls in (SomeConfig, jot))      # Lists your jotted thoughts
+    clear(for jot)         or (ls in (SomeConfig, jot))      # Clears all jotted thoughts
+    jot-file(for jot)      or (jotFile in (SomeConfig, jot)) # File containing thoughts
+    jot-directory(for jot) or (jotDirectory in (SomeConfig, jot)) # Directory containing jot file
+    colors(for jot) or (colors in (SomeConfig, jot))         # Toggles ansii colored output
+
+for more information see the projects [readme][rm]
+
+[bp]: https://github.com/harrah/xsbt/wiki/Plugins-Best-Practices
+[rm]: https://github.com/softprops/jot#readme

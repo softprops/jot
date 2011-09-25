@@ -1,17 +1,17 @@
 # verify .jotfile gets created
 $ delete .jot
-> jot:down Some idea
+> jot Some idea
 $ exists .jot
 
 # check that the file is empty
-> jot:clear
+> clear(for jot)
 > empty .jot
 
 # check content creation
-> jot:down Write more scripted tests
-> jot:down Verify rm works
+> jot Write more scripted tests
+> jot Verify rm works
 > contents .jot fixtures/before-rm
 
 # not rm the second item
-> jot:rm 1
+> rm(for jot) 1
 > contents .jot fixtures/after-rm

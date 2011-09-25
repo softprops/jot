@@ -4,21 +4,19 @@ import sbt._
 import Project.Initialize
 import java.io.File
 
-object Keys {
-  val down = InputKey[Unit]("down", "Appends a thought to your jot file")
-  val rm = InputKey[Unit]("rm", "Removes a thought from your jot file")
-  val ls = TaskKey[Unit]("ls", "Lists your jotted thoughts")
-  val clear = TaskKey[Unit]("clear", "Clears all jotted thoughts")
-  val jotFile = SettingKey[File]("jot-file", "File containing thoughts")
-  val jotDirectory = SettingKey[File]("jot-directory", "Directory containing jot file")
-  val colors = SettingKey[Boolean]("colors", "Toggles ansii colored output")
-}
-
 object Plugin extends sbt.Plugin {
   import sbt.Keys._
-  import jot.Keys._
+  import JotKeys._
 
-  val Jot = config("jot")
+  object JotKeys {
+    val jot = InputKey[Unit]("jot", "Appends a thought to your jot file")
+    val rm = InputKey[Unit]("rm", "Removes a thought from your jot file")
+    val ls = TaskKey[Unit]("ls", "Lists your jotted thoughts")
+    val clear = TaskKey[Unit]("clear", "Clears all jotted thoughts")
+    val jotFile = SettingKey[File]("jot-file", "File containing thoughts")
+    val jotDirectory = SettingKey[File]("jot-directory", "Directory containing jot file")
+    val colors = SettingKey[Boolean]("colors", "Toggles ansii colored output")
+  }
 
   private def lines(f: File): Array[(String, Int)] = IO.read(f) match {
     case "" => Array.empty[(String, Int)]
@@ -26,14 +24,14 @@ object Plugin extends sbt.Plugin {
   }
 
   private def clearTask: Initialize[Task[Unit]] =
-    (streams, jotFile) map {
+    (streams, jotFile in jot) map {
       (out, jf) =>
         IO.write(jf, "")
         out.log.info("jots cleared")
     }
 
   private def lsTask: Initialize[Task[Unit]] =
-    (streams, jotFile, colors) map {
+    (streams, jotFile in jot, colors in jot) map {
       (out, jf, clrs) =>
         out.log.info("jottings..")
         IO.touch(jf)
@@ -47,12 +45,17 @@ object Plugin extends sbt.Plugin {
         }
     }
 
-  def options: Seq[Setting[_]] = inConfig(Jot)(Seq(
-    jotDirectory <<= (baseDirectory).identity,
-    jotFile <<= (jotDirectory)(_ / ".jot"),
-    colors := true,
-    down <<= inputTask { (argsTask: TaskKey[Seq[String]]) =>
-      (argsTask, streams, jotFile, colors) map { (args, out, jf, clrs) =>
+  def jotSettings: Seq[Setting[_]] =
+    jotSettingsIn(Compile) ++ jotSettingsIn(Test)
+
+  def jotSettingsIn(c: Configuration) = inConfig(c)(jotSettings0)
+
+  def jotSettings0: Seq[Setting[_]] = Seq(
+    jotDirectory in jot <<= (baseDirectory).identity,
+    jotFile in jot <<= (jotDirectory in jot)(_ / ".jot"),
+    colors in jot := true,
+    jot <<= inputTask { (argsTask: TaskKey[Seq[String]]) =>
+      (argsTask, streams, jotFile in jot, colors in jot) map { (args, out, jf, clrs) =>
         args.mkString(" ").trim match {
           case "" => out.log.error("usage: jot:down some ideas")
           case thought =>
@@ -64,8 +67,8 @@ object Plugin extends sbt.Plugin {
         }
       }
     },
-    rm <<= inputTask { (argsTask: TaskKey[Seq[String]]) =>
-      (argsTask, streams, jotFile, colors) map { (args, out, jf, clrs) =>
+    rm in jot <<= inputTask { (argsTask: TaskKey[Seq[String]]) =>
+      (argsTask, streams, jotFile in jot, colors in jot) map { (args, out, jf, clrs) =>
         args match {
           case Seq(num) =>
             IO.touch(jf)
@@ -87,7 +90,7 @@ object Plugin extends sbt.Plugin {
         }
       }
     },
-    ls <<= lsTask,
-    clear <<= clearTask
-  ))
+    ls in jot <<= lsTask,
+    clear in jot <<= clearTask
+  )
 }
