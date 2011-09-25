@@ -24,6 +24,10 @@ Add the following to your plugin definition
 
     addSbtPlugin("me.lessis" % "jot" % "0.1.0")
 
+And add the settings in your build file with
+
+    seq(jotSettings:_*)
+
 [bp]: https://github.com/harrah/xsbt/wiki/Plugins-Best-Practices
 [rm]: https://github.com/softprops/jot#readme
 [sbt11]: http://typesafe.artifactoryonline.com/typesafe/ivy-releases/org.scala-tools.sbt/sbt-launch/0.11.0/sbt-launch.jar
