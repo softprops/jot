@@ -20,6 +20,8 @@ for more information see the projects [readme][rm]
 
 - published for sbt [0.11][sbt11]
 
+Add the following to your plugin definition
+
     addSbtPlugin("me.lessis" % "jot" % "0.1.0")
 
 [bp]: https://github.com/harrah/xsbt/wiki/Plugins-Best-Practices
