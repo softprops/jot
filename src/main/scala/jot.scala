@@ -9,11 +9,11 @@ object Plugin extends sbt.Plugin {
   import JotKeys._
 
   object JotKeys {
-    val jot = InputKey[Unit]("jot", "Appends a thought to your jot file")
-    val rm = InputKey[Unit]("rm", "Removes a thought from your jot file")
-    val ls = TaskKey[Unit]("ls", "Lists your jotted thoughts")
-    val clear = TaskKey[Unit]("clear", "Clears all jotted thoughts")
-    val jotFile = SettingKey[File]("jot-file", "File containing thoughts")
+    val jot = InputKey[Unit]("jot", "Appends an item your jot file")
+    val rm = InputKey[Unit]("rm", "Removes an item from your jot file")
+    val ls = TaskKey[Unit]("ls", "Enumerates the contents of your jot file")
+    val clear = TaskKey[Unit]("clear", "Clears jot file")
+    val jotFile = SettingKey[File]("jot-file", "File containing jotted items")
     val jotDirectory = SettingKey[File]("jot-directory", "Directory containing jot file")
     val colors = SettingKey[Boolean]("colors", "Toggles ansii colored output")
   }
@@ -58,11 +58,11 @@ object Plugin extends sbt.Plugin {
       (argsTask, streams, jotFile in jot, colors in jot) map { (args, out, jf, clrs) =>
         args.mkString(" ").trim match {
           case "" => out.log.error("usage: `jot some ideas`")
-          case thought =>
+          case item =>
             IO.touch(jf)
-            IO.append(jf, thought + "\n\n")
+            IO.append(jf, item + "\n\n")
             out.log.info(
-              (if(clrs) "jotted, \033[0;37m%s\033[0m" else "jotted, %s") format thought
+              (if(clrs) "jotted, \033[0;37m%s\033[0m" else "jotted, %s") format item
             )
         }
       }
@@ -82,9 +82,10 @@ object Plugin extends sbt.Plugin {
                   )
                   false
                 case _ => true
-              }).map(_._1)
-                .mkString("","\n\n","\n\n")
-              )
+              }).map(_._1) match {
+                case Array() => ""
+                case lns => lns.mkString("","\n\n","\n\n")
+              })
             }
           case _ => out.log.error("usage: rm(for jot) <num>")
         }
