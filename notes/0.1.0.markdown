@@ -1,6 +1,6 @@
 # initial release
 
-`Jot` tracks project notes locally. It will not make you a sandwich.
+`Jot` tracks project notes locally. [It will not make you a sandwich](http://www.screenr.com/SKQs).
 
 - settings
 

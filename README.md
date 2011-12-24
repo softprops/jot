@@ -2,7 +2,7 @@
 
 Simple local storage for all of those half baked ideas.
 
-`jot`, `drop` and roll.
+`jot`, `drop` and [roll](http://www.screenr.com/SKQs).
 
 ## Install
 
