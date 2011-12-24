@@ -31,7 +31,7 @@ And add following in your build definition
     
 And you're done.
 
-If you want other support for other sbt versions [Let me know][issues]
+If you want support for other sbt versions [Let me know][issues]
 
 [bp]: https://github.com/harrah/xsbt/wiki/Plugins-Best-Practices
 [rm]: https://github.com/softprops/jot#readme
