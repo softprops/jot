@@ -14,7 +14,22 @@ And add following in your build definition
 
     seq(jotSettings:_*)
 
+
+### Install globally
+
+This is usually preferable, as it is less intrusive
+
+Append `~/.sbt/plugins/build.sbt` with
+
+    addSbtPlugin("me.lessis" % "jot" % "0.1.0")
+
+In any `.sbt` file under `~/.sbt`, say `~/.sbt/jot.sbt` for instance, append
+
+    seq(jotSettings:_*)
+
 ## usage
+
+Jot stores data in a `.jot` file in your project's root
 
 Below is a list of available settings
 
