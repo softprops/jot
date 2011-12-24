@@ -4,7 +4,7 @@ $ delete .jot
 $ exists .jot
 
 # check that the file is empty
-> clear(for jot)
+> clean(for jot)
 > empty .jot
 
 # check content creation
@@ -13,5 +13,5 @@ $ exists .jot
 > contents .jot fixtures/before-rm
 
 # not rm the second item
-> rm(for jot) 1
+> jot-drop 1
 > contents .jot fixtures/after-rm

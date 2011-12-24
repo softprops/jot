@@ -1,3 +1,3 @@
 seq(jotSettings:_*)
 
-(JotKeys.jotFile in (Compile, JotKeys.jot)) <<= (baseDirectory)(_ / ".myjots")
+(JotKeys.jotFile in Compile) <<= (baseDirectory)(_ / ".myjots")

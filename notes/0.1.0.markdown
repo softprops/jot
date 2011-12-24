@@ -1,33 +1,39 @@
 # initial release
 
-Jot tracks local project notes in a simple format. I will not make you a sandwich.
-
-- sbt plugins [best practices][bp] ✔
+`Jot` tracks project notes locally. It will not make you a sandwich.
 
 - settings
 
-below is a list of available settings
+below is a list of available settings(*)
 
-    jot                                                      # Appends a thought to your jot file
-    rm(for jot)            or (rm in (SomeConfig, jot))      # Removes a thought from your jot file
-    ls(for jot)            or (ls in (SomeConfig, jot))      # Lists your jotted thoughts
-    clear(for jot)         or (ls in (SomeConfig, jot))      # Clears all jotted thoughts
-    jot-file(for jot)      or (jotFile in (SomeConfig, jot)) # File containing thoughts
-    jot-directory(for jot) or (jotDirectory in (SomeConfig, jot)) # Directory containing jot file
-    colors(for jot) or (colors in (SomeConfig, jot))         # Toggles ansii colored output
+    jot                                                     # Appends an item to your jot file
+    clean(for jot)        or (clean in (SomeConfig, jot))   # Removes an item from your jot file
+    jot-drop              or (drop in SomeConfig))          # Drops a target item from your jot file
+    jot-cat               or (cat in SomeConfig)            # Lists your jottings
+    jot-file              or (jotFile in SomeConfig)        # File containing jottings
+    target(for jot)       or (target in (SomeConfig, jot))  # Directory containing jot-file
+    colors(for jot)       or (colors in (SomeConfig, jot))  # Toggles ansii colored output
 
-for more information see the projects [readme][rm]
+(*) subject to change in the future. Some key interface combinations of `jot-x(for jot)` were kind of annoying so some keys are not
+scoped to jot. This may change in the future
 
-- published for sbt [0.11][sbt11]
+for more information see the project's [readme][rm].
+
+- published for sbt [0.11.2][sbt112]
 
 Add the following to your plugin definition
 
     addSbtPlugin("me.lessis" % "jot" % "0.1.0")
 
-And add the settings in your build file with
+And add following in your build definition
 
     seq(jotSettings:_*)
+    
+And you're done.
+
+If you want other support for other sbt versions [Let me know][issues]
 
 [bp]: https://github.com/harrah/xsbt/wiki/Plugins-Best-Practices
 [rm]: https://github.com/softprops/jot#readme
-[sbt11]: http://typesafe.artifactoryonline.com/typesafe/ivy-releases/org.scala-tools.sbt/sbt-launch/0.11.0/sbt-launch.jar
+[sbt112]: http://typesafe.artifactoryonline.com/typesafe/ivy-releases/org.scala-tools.sbt/sbt-launch/0.11.2/sbt-launch.jar
+[issues]: https://github.com/softprops/jot/issues

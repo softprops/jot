@@ -1,0 +1,19 @@
+
+{
+ "organization":"me.lessis",
+ "name":"jot",
+ "version":"0.1.0",
+ "description":"Sbt interface for storing local project notes",
+ "site":"https://github.com/softprops/jot/",
+ "tags":["sbt"],
+ "docs":"",
+ "licenses": [],
+ "resolvers": ["http://scala-tools.org/repo-releases"],
+ "dependencies": [{
+   "organization":"org.scala-tools.sbt",
+   "name": "scripted-sbt_2.9.1",
+   "version": "0.11.2"
+  }],
+ "scalas": ["2.9.1"],
+ "sbt": true
+}
