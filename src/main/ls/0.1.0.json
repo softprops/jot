@@ -7,7 +7,10 @@
  "site":"https://github.com/softprops/jot/",
  "tags":["sbt"],
  "docs":"",
- "licenses": [],
+ "licenses": [{
+   "name": "MIT",
+   "url": "https://github.com/softprops/jot/blob/0.1.0/LICENSE"
+  }],
  "resolvers": ["http://scala-tools.org/repo-releases"],
  "dependencies": [{
    "organization":"org.scala-tools.sbt",
