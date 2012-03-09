@@ -31,6 +31,8 @@ In any `.sbt` file under `~/.sbt`, say `~/.sbt/jot.sbt` for instance, append
 
 Jot stores data in a `.jot` file in your project's root
 
+What to keep your jots to yourself? That's cool. Just add `.jot` to your `.gitignore` file.
+
 Below is a list of available settings
 
     jot                                                     # Appends an item to your jot file
@@ -41,4 +43,4 @@ Below is a list of available settings
     target(for jot)       or (target in (SomeConfig, jot))  # Directory containing generated jot file
     colors(for jot)       or (colors in (SomeConfig, jot))  # Toggles ansii colored output
 
-Doug Tangren (softprops) 2011
+Doug Tangren (softprops) 2011-12
