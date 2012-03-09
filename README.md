@@ -10,6 +10,12 @@ Add the following to your plugin definition
 
     addSbtPlugin("me.lessis" % "jot" % "0.1.0")
 
+And if you haven't added it already, add the community sbt resolver
+
+    resolvers += Resolver.url("sbt-plugin-releases",
+      url("http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases/"))(
+        Resolver.ivyStylePatterns)
+
 And add following in your build definition
 
     seq(jotSettings:_*)
