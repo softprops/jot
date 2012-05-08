@@ -1,4 +1,4 @@
-libraryDependencies <+= sbtVersion("org.scala-tools.sbt" %% "scripted-plugin" % _)
+libraryDependencies <+= sbtVersion("org.scala-sbt" %% "scripted-plugin" % _)
 
 resolvers += Resolver.url("scalasbt", new URL(
   "http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases"))(
