@@ -5,7 +5,7 @@ organization := "me.lessis"
 name := "jot"
 
 version <<= sbtVersion { v =>
-  if(v.startsWith("0.11")) "0.1.0"
+  if(v.startsWith("0.11") || v.startsWith("0.12")) "0.1.1-SNAPSHOT"
   else error("unsupported version of sbt %s" format v)
 }
 
@@ -15,11 +15,11 @@ description := "Sbt interface for storing local project notes"
 
 scalacOptions += "-deprecation"
 
-seq(ScriptedPlugin.scriptedSettings: _*)
+//seq(ScriptedPlugin.scriptedSettings: _*)
 
-seq(lsSettings :_*)
+//seq(lsSettings :_*)
 
-(LsKeys.tags in LsKeys.lsync) := Seq("sbt")
+//(LsKeys.tags in LsKeys.lsync) := Seq("sbt")
 
 licenses <++= (version)(v => Seq("MIT" -> url(
   "https://github.com/softprops/jot/blob/%s/LICENSE".format(v))))
