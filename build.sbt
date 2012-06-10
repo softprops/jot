@@ -15,7 +15,7 @@ description := "Sbt interface for storing local project notes"
 
 scalacOptions += "-deprecation"
 
-//seq(ScriptedPlugin.scriptedSettings: _*)
+seq(ScriptedPlugin.scriptedSettings: _*)
 
 //seq(lsSettings :_*)
 
