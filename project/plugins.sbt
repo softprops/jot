@@ -10,12 +10,10 @@ libraryDependencies <+= sbtVersion(v=>
   }
 )
 
-resolvers += Resolver.url("scalasbt", new URL(
-  "http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases"))(
-  Resolver.ivyStylePatterns)
+//resolvers += Classpaths.sbtPluginReleases
 
 addSbtPlugin("com.jsuereth" % "xsbt-gpg-plugin" % "0.6")
 
-resolvers += "coda" at "http://repo.codahale.com"
+//resolvers += "coda" at "http://repo.codahale.com"
 
-//addSbtPlugin("me.lessis" % "ls-sbt" % "0.1.1")
+addSbtPlugin("me.lessis" % "ls-sbt" % "0.1.2")
