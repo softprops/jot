@@ -5,9 +5,13 @@ organization := "me.lessis"
 name := "jot"
 
 version <<= sbtVersion { v =>
-  if(v.startsWith("0.11") || v.startsWith("0.12")) "0.1.0"
+  if(v.startsWith("0.11") || v.startsWith("0.12") || v.startsWith("0.13")) "0.1.0"
   else error("unsupported version of sbt %s" format v)
 }
+
+sbtVersion in Global := "0.13.0-Beta2"
+
+scalaVersion in Global := "2.10.2-RC2"
 
 homepage := Some(url("https://github.com/softprops/jot/"))
 
