@@ -2,7 +2,7 @@ package jot
 
 object Plugin extends sbt.Plugin {
   import sbt._
-  import sbt.Project.Initialize
+  import sbt.Def.Initialize
   import sbt.Keys._
   import JotKeys.{ jot => j, _ }
   import java.io.File
