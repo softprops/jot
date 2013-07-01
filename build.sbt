@@ -9,9 +9,9 @@ version <<= sbtVersion { v =>
   else error("unsupported version of sbt %s" format v)
 }
 
-sbtVersion in Global := "0.13.0-Beta2"
+sbtVersion in Global := "0.13.0-RC1"
 
-scalaVersion in Global := "2.10.2-RC2"
+scalaVersion in Global := "2.10.2"
 
 homepage := Some(url("https://github.com/softprops/jot/"))
 
